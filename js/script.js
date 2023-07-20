@@ -99,6 +99,12 @@ const init = async () => {
     modal: ".modal_order",
     btnOpen: ".header__btn-order",
   });
+
+  modalController({
+    modal: ".modal_make",
+    btnOpen: ".cocktail__btn_make",
+  });
+
   const goodsListElem = document.querySelector(".goods__list");
   const data = await getData();
 
