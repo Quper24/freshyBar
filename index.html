@@ -78,7 +78,8 @@
                   <p class="cocktail__size">300мл</p>
                 </div>
 
-                <button class="btn cocktail__btn">Добавить</button>
+                <button
+                  class="btn cocktail__btn cocktail__btn_make">Добавить</button>
               </div>
             </article>
           </li>
@@ -105,6 +106,81 @@
       </ul>
     </div>
   </footer>
+
+  <div class="modal modal_order">
+    <div class="modal__main">
+      <div class="order">
+        <h2 class="order__title">Корзина<sup
+            class="text-red order__count">(2)</sup>
+        </h2>
+
+        <ul class="order__list">
+          <li class="order__item">
+            <img class="order__img" src="img/make-your-own.jpg"
+              alt="название коктейля">
+
+            <div class="order__info">
+              <h3 class="order__name">Манго смузи</h3>
+
+              <ul class="order__topping-list">
+                <li class="order__topping-item">300мл</li>
+                <li class="order__topping-item">Биоразлагаемый стакан</li>
+                <li class="order__topping-item">Лед</li>
+                <li class="order__topping-item">Мята</li>
+              </ul>
+            </div>
+
+            <button class="order__item-delete"
+              aria-label="Удалить коктейл из корзины"></button>
+
+            <p class="order__item-price">380&nbsp;₽</p>
+          </li>
+
+          <li class="order__item">
+            <img class="order__img" src="img/kiwi-and-apple.jpg"
+              alt="название коктейля">
+
+            <div class="order__info">
+              <h3 class="order__name">Конструктор: Банан, яблоко, киви</h3>
+
+              <ul class="order__topping-list">
+                <li class="order__topping-item">300мл</li>
+                <li class="order__topping-item">Биоразлагаемый стакан</li>
+              </ul>
+            </div>
+
+            <button class="order__item-delete"
+              aria-label="Удалить коктейл из корзины"></button>
+
+            <p class="order__item-price">520&nbsp;₽</p>
+          </li>
+        </ul>
+
+        <div class="order__price">
+          <p class="order__price-title">Итого:</p>
+          <p class="order__total-price">950 ₽</p>
+        </div>
+
+        <form class="order__form">
+          <label class="order__label">
+            <input class="order__input" type="text" placeholder="Ваше имя">
+          </label>
+
+          <label class="order__label">
+            <input class="order__input" type="text" placeholder="Телефон">
+          </label>
+
+          <button class="order__submit btn">Заказать</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal_2">
+    <div class="modal__main">
+      test
+    </div>
+  </div>
 </body>
 
 </html>
