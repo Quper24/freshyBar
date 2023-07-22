@@ -115,45 +115,7 @@
         </h2>
 
         <ul class="order__list">
-          <li class="order__item">
-            <img class="order__img" src="img/make-your-own.jpg"
-              alt="название коктейля">
 
-            <div class="order__info">
-              <h3 class="order__name">Манго смузи</h3>
-
-              <ul class="order__topping-list">
-                <li class="order__topping-item">300мл</li>
-                <li class="order__topping-item">Биоразлагаемый стакан</li>
-                <li class="order__topping-item">Лед</li>
-                <li class="order__topping-item">Мята</li>
-              </ul>
-            </div>
-
-            <button class="order__item-delete"
-              aria-label="Удалить коктейл из корзины"></button>
-
-            <p class="order__item-price">380&nbsp;₽</p>
-          </li>
-
-          <li class="order__item">
-            <img class="order__img" src="img/kiwi-and-apple.jpg"
-              alt="название коктейля">
-
-            <div class="order__info">
-              <h3 class="order__name">Конструктор: Банан, яблоко, киви</h3>
-
-              <ul class="order__topping-list">
-                <li class="order__topping-item">300мл</li>
-                <li class="order__topping-item">Биоразлагаемый стакан</li>
-              </ul>
-            </div>
-
-            <button class="order__item-delete"
-              aria-label="Удалить коктейл из корзины"></button>
-
-            <p class="order__item-price">520&nbsp;₽</p>
-          </li>
         </ul>
 
         <div class="order__price">
@@ -163,11 +125,13 @@
 
         <form class="order__form">
           <label class="order__label">
-            <input class="order__input" type="text" placeholder="Ваше имя">
+            <input class="order__input" type="text" required name="name"
+              placeholder="Ваше имя">
           </label>
 
           <label class="order__label">
-            <input class="order__input" type="text" placeholder="Телефон">
+            <input class="order__input" type="text" required name="phone"
+              placeholder="Телефон">
           </label>
 
           <button class="order__submit btn">Заказать</button>
@@ -258,6 +222,8 @@
               <input class="make__input make__input_price" type="hidden"
                 name="price" value="150">
               <p class="make__total-price text-red">150 ₽</p>
+              <input class="make__input make__input_size" type="hidden"
+                name="size" value="300">
               <p class="make__total-size">300мл</p>
             </div>
           </div>

@@ -235,7 +235,7 @@ const calculateMakeYourOwn = () => {
   const resetForm = () => {
     makeTotalPrice.textContent = "";
     makeAddBtn.disabled = true;
-    formAdd.reset();
+    formMakeOwn.reset();
   };
 
   return { resetForm };
@@ -262,7 +262,7 @@ const calculateAdd = () => {
 
   formAdd.addEventListener("change", handlerChange);
   formControl(formAdd, () => {
-    modalAdd.closest("close");
+    modalAdd.closeModal("close");
   });
 
   const fillInForm = (data) => {
@@ -286,10 +286,97 @@ const calculateAdd = () => {
   return { fillInForm, resetForm };
 };
 
+const createCartItem = (item) => {
+  const li = document.createElement("li");
+  li.classList.add("order__item");
+  li.innerHTML = `
+    <img class="order__img" src="img/kiwi-and-apple.jpg"
+      alt="${item.title}">
+
+    <div class="order__info">
+      <h3 class="order__name">${item.title}</h3>
+
+      <ul class="order__topping-list">
+        <li class="order__topping-item">${item.size}</li>
+        <li class="order__topping-item">${item.cup}</li>
+        ${
+          item.topping
+            ? Array.isArray(item.topping)
+              ? item.topping.map(
+                  (topping) =>
+                    `<li class="order__topping-item">${topping}</li>`,
+                )
+              : `<li class="order__topping-item">${item.topping}</li>`
+            : ""
+        }
+        
+      </ul>
+    </div>
+
+    <button class="order__item-delete" data-idls="${item.idls}"
+      aria-label="Удалить коктейл из корзины"></button>
+
+    <p class="order__item-price">${item.price}&nbsp;₽</p>
+  `;
+
+  return li;
+};
+
+const renderCart = () => {
+  const modalOrder = document.querySelector(".modal_order");
+  const orderCount = modalOrder.querySelector(".order__count");
+  const orderList = modalOrder.querySelector(".order__list");
+  const orderTotalPrice = modalOrder.querySelector(".order__total-price");
+  const orderForm = modalOrder.querySelector(".order__form");
+
+  const orderListData = cartDataControl.get();
+
+  orderList.textContent = "";
+  orderCount.textContent = `(${orderListData.length})`;
+
+  orderListData.forEach((item) => {
+    orderList.append(createCartItem(item));
+  });
+
+  orderTotalPrice.textContent = `${orderListData.reduce(
+    (acc, item) => acc + +item.price,
+    0,
+  )} ₽`;
+
+  orderForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!orderListData.length) {
+      alert("Корзина пустая");
+      orderForm.reset();
+      modalOrder.closeModal("close");
+      return;
+    }
+
+    const data = getFormData(orderForm);
+    const response = await fetch(`${API_URL}api/order`, {
+      method: "POST",
+      body: JSON.stringify({
+        ...data,
+        products: orderListData,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const { message } = await response.json();
+    alert(message);
+    cartDataControl.clear();
+    orderForm.reset();
+    modalOrder.closeModal("close");
+  });
+};
+
 const init = async () => {
   modalController({
     modal: ".modal_order",
     btnOpen: ".header__btn-order",
+    open: renderCart,
   });
 
   const { resetForm: resetFormMakeYourOwn } = calculateMakeYourOwn();
