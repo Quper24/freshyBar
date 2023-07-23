@@ -1,5 +1,6 @@
 import { sentData } from "./apiService.js";
 import { API_URL } from "./config.js";
+import { getFormData } from "./getFormData.js";
 
 export const cartDataControl = {
   get() {
@@ -10,19 +11,29 @@ export const cartDataControl = {
     item.idls = Math.random().toString(36).substring(2, 8);
     cartData.push(item);
     localStorage.setItem("freshyBarCart", JSON.stringify(cartData));
+    renderCountCart(cartData.length);
   },
   remove(idls) {
     const cartData = this.get();
-    const index = cart.findIndex((item) => item.idls === idls);
+    const index = cartData.findIndex((item) => item.idls === idls);
     if (index !== -1) {
       cartData.splice(index, 1);
     }
     localStorage.setItem("freshyBarCart", JSON.stringify(cartData));
+    renderCountCart(cartData.length);
   },
   clear() {
     localStorage.removeItem("freshyBarCart");
+    renderCountCart(0);
   },
 };
+
+const renderCountCart = (count) => {
+  const headerBtnOrder = document.querySelector(".header__btn-order");
+  headerBtnOrder.dataset.count = count || cartDataControl.get().length;
+};
+
+renderCountCart();
 
 const createCartItem = (item, data) => {
   const img = data.find((cocktail) => cocktail.title === item.title)?.image;
@@ -63,13 +74,7 @@ const createCartItem = (item, data) => {
   return li;
 };
 
-export const renderCart = (data) => {
-  const modalOrder = document.querySelector(".modal_order");
-  const orderCount = modalOrder.querySelector(".order__count");
-  const orderList = modalOrder.querySelector(".order__list");
-  const orderTotalPrice = modalOrder.querySelector(".order__total-price");
-  const orderForm = modalOrder.querySelector(".order__form");
-
+const renderCartList = ({ data, orderCount, orderList, orderTotalPrice }) => {
   const orderListData = cartDataControl.get();
 
   orderList.textContent = "";
@@ -84,6 +89,22 @@ export const renderCart = (data) => {
     0,
   )} ₽`;
 
+  return orderListData;
+};
+
+export const renderCart = (data) => {
+  const modalOrder = document.querySelector(".modal_order");
+  const orderCount = modalOrder.querySelector(".order__count");
+  const orderList = modalOrder.querySelector(".order__list");
+  const orderTotalPrice = modalOrder.querySelector(".order__total-price");
+  const orderForm = modalOrder.querySelector(".order__form");
+
+  let orderListData = renderCartList({
+    data,
+    orderCount,
+    orderList,
+    orderTotalPrice,
+  });
   orderForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!orderListData.length) {
@@ -104,5 +125,17 @@ export const renderCart = (data) => {
     cartDataControl.clear();
     orderForm.reset();
     modalOrder.closeModal("close");
+  });
+
+  orderList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("order__item-delete")) {
+      cartDataControl.remove(e.target.dataset.idls);
+      orderListData = renderCartList({
+        data,
+        orderCount,
+        orderList,
+        orderTotalPrice,
+      });
+    }
   });
 };

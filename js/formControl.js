@@ -1,3 +1,4 @@
+import { cartDataControl } from "./cartControl.js";
 import { price } from "./config.js";
 import { getFormData } from "./getFormData.js";
 
