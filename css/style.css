@@ -1025,6 +1025,113 @@ fieldset {
     grid-template-areas: "logo" "copyright" "developer";
     gap: 20px;
   }
+
+  .modal {
+    padding: 20px 0;
+  }
+
+  .modal__main_order {
+    max-width: 320px;
+  }
+
+  .modal__main_make {
+    max-width: 320px;
+  }
+
+  .order {
+    padding: 24px 15px;
+  }
+
+  .order__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .order__list {
+    margin-bottom: 20px;
+  }
+
+  .order__item {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 8px;
+  }
+
+  .order__name {
+    margin-bottom: 4px;
+  }
+
+  .order__topping-item {
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+
+  .order__price {
+    margin-bottom: 20px;
+  }
+
+  .order__form {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .order__label {
+    margin-bottom: 8px;
+  }
+
+  .order__label:last-child {
+    margin-bottom: 40px;
+  }
+
+  .order__submit {
+    grid-column: auto;
+  }
+
+  .make {
+    padding: 24px 15px;
+  }
+
+  .make__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .make__fieldset_ingredients {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 15px;
+    margin-bottom: 24px;
+  }
+
+  .make__wrap-add {
+    margin-bottom: 24px;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .make__fieldset_topping {
+    width: auto;
+    gap: 12px;
+  }
+
+  .make__fieldset_cup {
+    gap: 12px;
+  }
+
+  .make__legend {
+    margin-bottom: 12px;
+  }
+
+  .make__upsale {
+    font-size: 10px;
+  }
+
+  .make__footer {
+    gap: 16px;
+  }
+
+  .make__add-btn {
+    min-width: auto;
+  }
 }
 
 @keyframes flying01 {
