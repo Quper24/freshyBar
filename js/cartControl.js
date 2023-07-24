@@ -59,10 +59,13 @@ const createCartItem = (item, data) => {
         ${
           item.topping
             ? Array.isArray(item.topping)
-              ? item.topping.map(
-                  (topping) =>
-                    `<li class="order__topping-item">${topping}</li>`,
-                )
+              ? item.topping
+                  .map(
+                    (topping) =>
+                      `<li class="order__topping-item">${topping}</li>`,
+                  )
+                  .toString()
+                  .replace(",", "")
               : `<li class="order__topping-item">${item.topping}</li>`
             : ""
         }
